@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="my.guestbook">
+<body>
+
+
+<metal:main fill-slot="content-core">
+  <metal:content-core define-macro="content-core">
+
+      <div id="form-area">
+        <p>書き込みをどうぞ。</p>
+        <form method="post" tal:attributes="action context/@@post/url">
+          <table>
+            <tr>
+              <th>名前</th>
+              <td>
+                <input type="text" size="20" name="name" />
+              </td>
+            </tr>
+            <tr>
+              <th>コメント</th>
+              <td>
+                <textarea rows="5" cols="40" name="comment"></textarea>
+              </td>
+            </tr>
+          </table>
+          <p><button type="submit">送信</button></p>
+        </form>
+      </div>
+      <div id="entries-area">
+        <h2>これまでの書き込み</h2>
+
+        <div class="entry" tal:repeat="greeting context/comments">
+          <h3><span tal:content="greeting/name">greeting.name</span> さんの書き込み(<span tal:content="greeting/created_at">greeting.create_at</span>):</h3>
+          <p tal:content="greeting/comment">greeting.comment</p>
+        </div>
+
+      </div>
+  </metal:content-core>
+</metal:main>
+
+</body>
+</html>
+
